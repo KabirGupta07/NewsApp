@@ -123,7 +123,9 @@ def convert(inputfile, outfile):
 
 
 def record_audio(filename):
-    display(HTML(AUDIO_HTML))
+    html = HTML(AUDIO_HTML)
+    print(html)
+    display(html)
     data = eval_js("data")
     binary = b64decode(data.split(",")[1])
     print(binary)
