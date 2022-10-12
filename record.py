@@ -16,16 +16,7 @@ from base64 import b64decode
 import ffmpeg
 import sox
 from google.colab.output import eval_js
-# from colabcode import google.colab.output
-# from colabcode.google.colab.output import eval_js
-
 from IPython.display import HTML, display
-
-# import wave
-# from os import path
-    
-# # import required modules
-# import subprocess
 
 AUDIO_HTML = """
 <script>
@@ -96,19 +87,21 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var data = new Promise(resolve({
+var data = new Promise(resolve=>{
+  recordButton.onclick = () => {
     restyleButtonForRecording();
-    recordButton.onclick = function OnClick(){
+    recordButton.onclick = () => {
       toggleRecording();
-      sleep(2000).then(funtion pause(){
+      sleep(2000).then(() => {
         // wait 2000ms for the data to be available...
         // ideally this should use something like await...
-        console.log("Inside data:" + base64data)
+        // console.log("Inside data:" + base64data)
         resolve(base64data.toString());
       });
     };
     navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess);
-  }););
+  };
+});
 
 </script>
 """
@@ -123,17 +116,9 @@ def convert(inputfile, outfile):
 
 
 def record_audio(filename):
-    html = HTML(AUDIO_HTML)
-#     print(html)
-    display(html)
+    display(HTML(AUDIO_HTML))
     data = eval_js("data")
     binary = b64decode(data.split(",")[1])
-#     print(binary)
-
-    # w = wave.open("sample.wav", "rb")
-    # binary_data = w.readframes(w.getnframes())
-    # # # binary = b64decode(binary_data.split(",")[1])
-    # w.close()
 
     process = (
         ffmpeg.input("pipe:0")
@@ -145,9 +130,7 @@ def record_audio(filename):
             quiet=True,
             overwrite_output=True,
         )
-    )  
-# convert mp3 to wav file
-    # process = subprocess.call(['ffmpeg', '-i', 'sample.wav','test.wav'])
+    )
     output, err = process.communicate(input=binary)
     if process.returncode != 0:
         print("Error during recording")
