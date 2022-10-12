@@ -137,7 +137,7 @@ def record_audio(filename):
 
     process = (
         ffmpeg.input("pipe:0")
-        .output(filename + ".wav", format="wav")
+        .output(filename + ".48kHz.wav", format="wav")
         .run_async(
             pipe_stdin=True,
             pipe_stdout=True,
