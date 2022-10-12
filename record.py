@@ -124,11 +124,11 @@ def convert(inputfile, outfile):
 
 def record_audio(filename):
     html = HTML(AUDIO_HTML)
-    print(html)
+#     print(html)
     display(html)
     data = eval_js("data")
     binary = b64decode(data.split(",")[1])
-    print(binary)
+#     print(binary)
 
     # w = wave.open("sample.wav", "rb")
     # binary_data = w.readframes(w.getnframes())
