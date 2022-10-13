@@ -119,6 +119,7 @@ def record_audio(filename):
     display(HTML(AUDIO_HTML))
     data = eval_js("data")
     binary = b64decode(data.split(",")[1])
+    print(binary)
 
     process = (
         ffmpeg.input("pipe:0")
